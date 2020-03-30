@@ -1,0 +1,62 @@
+﻿@model ERP_ProjectControlSystem.ViewModels.ProjectViewModel
+@{
+    ViewData["Title"] = "Project";
+    string[] Types = { "Work", "Book", "Course", "Blog", "Other" };
+    ViewBag.AddedSkills = new List<Skill>();
+}
+
+    <form  method="post" asp-controller="Project" asp-action="AddProject">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="mb-3">
+            <label asp-for="Title"></label><br />
+            <input asp-for="Title" />
+            <span asp-validation-for="Title"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description"></label><br />
+            <input asp-for="Description" />
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Type"></label><br />
+            <input  hidden id="selectedType" asp-for="Type" />
+            <span asp-validation-for="Type"></span>
+            <select class="custom-select" id="projectTypeSelect">
+                @foreach (var type in Types)
+                {
+                    if (type == "Work")
+                    {
+                        <option value="@type" selected="selected">@type</option>
+                    }
+                    else
+                    {
+                        <option value="@type">@type</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Organization"></label><br />
+            <input asp-for="Organization" />
+            <span asp-validation-for="Organization"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Start"></label><br />
+            <input id="startDatePicker" asp-for="Start" />
+            <span asp-validation-for="Start"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="End"></label><br />
+            <input id="endDatePicker" asp-for="End" />
+            <span asp-validation-for="End"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Link"></label><br />
+            <input type="url" asp-for="Link" />
+            <span asp-validation-for="Link"></span>
+        </div>
+        <div>
+            <input class="btn btn-sm btn-success" type="submit" value="Add project" />
+        </div>
+    </form>
+

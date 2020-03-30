@@ -1,0 +1,18 @@
+﻿@model ERP_ProjectControlSystem.ViewModels.SkillViewModel
+
+@{
+    ViewData["Title"] = "AddSkill";
+}
+
+    <form method="post" asp-controller="Skill" asp-action="AddSkill">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Title"></label><br />
+            <input asp-for="Title" />
+            <span asp-validation-for="Title"></span>
+        </div>
+        <div>
+            <input type="submit" value="Add project" />
+        </div>
+    </form>    
+

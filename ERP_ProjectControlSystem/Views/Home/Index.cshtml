@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ERP_ProjectControlSystem.Models.Project>
+@{
+    ViewData["Title"] = "Home Page";
+    const string AdminRole = "Admin";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>@User.Identity.Name</p>
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-sm btn-success" asp-controller="Project" asp-action="AddProject">Add project</a>
+        <form method="post" asp-controller="Account" asp-action="Logout">
+            <input class="btn btn-sm btn-danger" type="submit" value="Logout" />
+        </form>
+    </div>
+
+    <h2>Projects list</h2>
+    <table class="table">
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@project.Title</td>
+                <td>@project.Description</td>
+                <td>@project.Organization</td>
+                <td>@project.Type</td>
+                <td>@project.Link</td>
+                <td>@project.Start</td>
+                <td>@project.End</td>
+                <td>@project.Created</td>
+                <td>@project.Updated</td>
+                @if (User.IsInRole(AdminRole))
+                 {
+                    <td>
+                        <form asp-action="Delete" asp-route-id="@project.Id" method="post">
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                 }
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="d-flex justify-content-center align-self-center">
+        <a class="btn btn-sm btn-info mb-2 mr-2" asp-controller="Account" asp-action="Login">Sign in</a>
+        <a class="btn btn-sm btn-success mt-2 ml-2" asp-controller="Account" asp-action="Register">Sign up</a>
+    </div>
+}
